@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Flex, { FlexItem } from "styled-flex-component";
 import FontAwesome from "react-fontawesome";
+import Store from "store";
 
 const Header = styled.header`
   height: 100px;
@@ -43,6 +44,16 @@ const Number = styled.span`
   top: -10px;
 `;
 
+const getUnseen = (notification) => {
+  let unseen = [];
+  Object.keys(notification).map(key => {
+    if(!notification[key].seen) {
+      return unseen.push(notification[key])
+    } 
+  })
+  return unseen.length
+}
+
 const HeaderPresenter = () => (
   <Header>
     <Flex full justifyBetween alignCenter>
@@ -59,7 +70,11 @@ const HeaderPresenter = () => (
           </HeaderIcon>
           <HeaderIcon>
             <FontAwesome name="bell" />
-            <Number>10</Number>
+            <Number>
+              <Store.Consumer>
+                {store => getUnseen(store.notification)}
+              </Store.Consumer>
+            </Number>
           </HeaderIcon>
         </Flex>
       </FlexItem>
