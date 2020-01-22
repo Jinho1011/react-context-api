@@ -44,15 +44,15 @@ const Number = styled.span`
   top: -10px;
 `;
 
-const getUnseen = (notification) => {
+const getUnseen = notification => {
   let unseen = [];
   Object.keys(notification).map(key => {
-    if(!notification[key].seen) {
-      return unseen.push(notification[key])
-    } 
-  })
-  return unseen.length
-}
+    if (!notification[key].seen) {
+      return unseen.push(notification[key]);
+    }
+  });
+  return unseen.length;
+};
 
 const HeaderPresenter = () => (
   <Header>

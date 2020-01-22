@@ -5,6 +5,29 @@ import Store from "store";
 class AppContainer extends Component {
   constructor(props) {
     super(props);
+
+    this.deleteNotification = id => {
+      this.setState(currState => {
+        const newState = delete currState.notification[id];
+        return newState;
+      });
+    };
+
+    this.seeNotification = id => {
+      this.setState(currState => {
+        return {
+          ...currState,
+          notification: {
+            ...currState.notification,
+            [id]: {
+              ...currState.notification[id],
+              seen: true
+            }
+          }
+        };
+      });
+    };
+
     this.state = {
       notification: {
         "1": {
@@ -22,7 +45,9 @@ class AppContainer extends Component {
           text: "something 3",
           seen: false
         }
-      }
+      },
+      deleteNotification: this.deleteNotification,
+      seeNotification: this.seeNotification
     };
   }
 
